@@ -380,6 +380,7 @@
     }
 
     .demo-tab:first-child { border-right: 1px solid var(--border); }
+    .demo-tab:not(:last-child) { border-right: 1px solid var(--border); }
 
     .demo-tab.active {
       color: var(--accent);
@@ -388,7 +389,12 @@
 
     .demo-panel {
       padding: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
+
+    .demo-panel > * { width: 100%; max-width: 560px; }
 
     .demo-panel.hidden { display: none; }
 
@@ -892,6 +898,137 @@
         padding: 32px 24px;
       }
     }
+    /* ── SPEED ROUND ── */
+    .speed-score-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+    }
+
+    .speed-score {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      color: var(--text);
+      line-height: 1;
+    }
+
+    .speed-score span { color: var(--text-muted); font-size: 1rem; }
+
+    .speed-timer-bar-wrap {
+      flex: 1;
+      height: 6px;
+      background: var(--surface-2);
+      border-radius: 3px;
+      margin: 0 20px;
+      overflow: hidden;
+    }
+
+    .speed-timer-bar {
+      height: 100%;
+      border-radius: 3px;
+      background: var(--accent);
+      transition: width 0.1s linear, background 0.3s;
+    }
+
+    .speed-timer-bar.urgent { background: #f87171; }
+
+    .speed-prompt {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .speed-prompt-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .speed-prompt-word {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+
+    .speed-prompt-word em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .speed-choices {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .speed-choice {
+      padding: 16px;
+      border-radius: 10px;
+      background: var(--surface-2);
+      border: 1.5px solid var(--border);
+      color: var(--text);
+      font-size: 1rem;
+      font-family: var(--font-body);
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s, transform 0.1s;
+      text-align: center;
+    }
+
+    .speed-choice:hover { background: var(--surface); border-color: var(--text-muted); transform: translateY(-1px); }
+    .speed-choice.correct { background: var(--accent-dim); border-color: var(--accent); color: var(--accent); pointer-events: none; }
+    .speed-choice.wrong   { background: rgba(239,68,68,0.12); border-color: rgba(239,68,68,0.4); color: #f87171; pointer-events: none; }
+    .speed-choice:disabled { pointer-events: none; }
+
+    .speed-start {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      padding: 40px 0;
+    }
+
+    .speed-start-title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .speed-start-sub {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      text-align: center;
+      max-width: 300px;
+      line-height: 1.6;
+      margin-bottom: 8px;
+    }
+
+    .speed-end {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      padding: 40px 0;
+      text-align: center;
+    }
+
+    .speed-end-score {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .speed-end-label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
   </style>
 </head>
 
@@ -986,6 +1123,7 @@
         <div class="demo-tabs">
           <button class="demo-tab active" data-tab="sentence">Sentence Builder</button>
           <button class="demo-tab" data-tab="compound">Word Connector</button>
+          <button class="demo-tab" data-tab="speed">Speed Round</button>
         </div>
 
         <!-- Sentence builder -->
@@ -1017,10 +1155,31 @@
             <span class="demo-feedback" id="compound-feedback"></span>
           </div>
         </div>
-      </div>
-    </section>
-
-    <!-- FEATURES -->
+        <!-- Speed round -->
+        <div class="demo-panel hidden" id="tab-speed">
+          <div id="speed-start-screen" class="speed-start">
+            <p class="speed-start-title">Pronoun Speed Round</p>
+            <p class="speed-start-sub">Choose the correct pronoun for each noun before the timer runs out. 20 questions, 5 seconds each.</p>
+            <button class="demo-submit" id="speed-start-btn">Start</button>
+          </div>
+          <div id="speed-game-screen" style="display:none; width:100%; max-width:560px;">
+            <div class="speed-score-row">
+              <div class="speed-score" id="speed-score">0<span>/20</span></div>
+              <div class="speed-timer-bar-wrap"><div class="speed-timer-bar" id="speed-bar"></div></div>
+              <div style="font-size:0.8rem;color:var(--text-muted)" id="speed-time">5s</div>
+            </div>
+            <div class="speed-prompt">
+              <p class="speed-prompt-label">Which pronoun?</p>
+              <p class="speed-prompt-word" id="speed-word">— Kuh</p>
+            </div>
+            <div class="speed-choices" id="speed-choices"></div>
+          </div>
+          <div id="speed-end-screen" style="display:none;" class="speed-end">
+            <p class="speed-end-score" id="speed-final-score">0</p>
+            <p class="speed-end-label">out of 20 correct</p>
+            <button class="demo-submit" id="speed-restart-btn">Try again</button>
+          </div>
+        </div>
     <section id="features" aria-labelledby="features-title">
       <div class="fade-up">
         <p class="section-label">Why It Works</p>
@@ -1174,6 +1333,7 @@
     // ── TABS ──
     document.querySelectorAll('.demo-tab').forEach(btn => {
       btn.addEventListener('click', () => {
+        clearInterval(speedTimer);
         document.querySelectorAll('.demo-tab').forEach(t => t.classList.remove('active'));
         document.querySelectorAll('.demo-panel').forEach(p => p.classList.add('hidden'));
         btn.classList.add('active');
@@ -1422,7 +1582,117 @@
 
     document.getElementById('compound-reset').addEventListener('click', buildCompound);
 
-    buildCompound();
+    // ── SPEED ROUND ──
+    const pronounWords = [
+      { word: "Kuh",      answer: "Die",  choices: ["Der","Die","Das","Dem"] },
+      { word: "Hund",     answer: "Der",  choices: ["Der","Die","Das","Ein"] },
+      { word: "Kind",     answer: "Das",  choices: ["Der","Die","Das","Den"] },
+      { word: "Mann",     answer: "Der",  choices: ["Der","Die","Das","Dem"] },
+      { word: "Frau",     answer: "Die",  choices: ["Der","Die","Das","Eine"] },
+      { word: "Haus",     answer: "Das",  choices: ["Der","Die","Das","Den"] },
+      { word: "Auto",     answer: "Das",  choices: ["Der","Die","Das","Dem"] },
+      { word: "Tisch",    answer: "Der",  choices: ["Der","Die","Das","Die"] },
+      { word: "Katze",    answer: "Die",  choices: ["Der","Die","Das","Den"] },
+      { word: "Buch",     answer: "Das",  choices: ["Der","Die","Das","Dem"] },
+      { word: "Schule",   answer: "Die",  choices: ["Der","Die","Das","Ein"] },
+      { word: "Baum",     answer: "Der",  choices: ["Der","Die","Das","Dem"] },
+      { word: "Fenster",  answer: "Das",  choices: ["Der","Die","Das","Den"] },
+      { word: "Stadt",    answer: "Die",  choices: ["Der","Die","Das","Dem"] },
+      { word: "Stuhl",    answer: "Der",  choices: ["Der","Die","Das","Eine"] },
+      { word: "Mädchen",  answer: "Das",  choices: ["Der","Die","Das","Den"] },
+      { word: "Straße",   answer: "Die",  choices: ["Der","Die","Das","Dem"] },
+      { word: "Zug",      answer: "Der",  choices: ["Der","Die","Das","Die"] },
+      { word: "Lampe",    answer: "Die",  choices: ["Der","Die","Das","Den"] },
+      { word: "Glas",     answer: "Das",  choices: ["Der","Die","Das","Dem"] },
+    ].sort(() => Math.random() - 0.5);
+
+    let speedIndex = 0;
+    let speedScore = 0;
+    let speedTimer = null;
+    let speedSecondsLeft = 5;
+    const SPEED_DURATION = 5;
+
+    function showSpeedQuestion() {
+      if (speedIndex >= pronounWords.length) { endSpeedRound(); return; }
+      const q = pronounWords[speedIndex];
+
+      document.getElementById('speed-word').innerHTML = `<em>___</em> ${q.word}`;
+      document.getElementById('speed-score').innerHTML = `${speedScore}<span>/${pronounWords.length}</span>`;
+
+      // shuffle choices
+      const shuffled = [...q.choices].sort(() => Math.random() - 0.5);
+      const choicesEl = document.getElementById('speed-choices');
+      choicesEl.innerHTML = '';
+      shuffled.forEach(c => {
+        const btn = document.createElement('button');
+        btn.className = 'speed-choice';
+        btn.textContent = c;
+        btn.addEventListener('click', () => answerSpeed(c, q.answer));
+        choicesEl.appendChild(btn);
+      });
+
+      // timer
+      speedSecondsLeft = SPEED_DURATION;
+      updateTimerBar();
+      clearInterval(speedTimer);
+      speedTimer = setInterval(() => {
+        speedSecondsLeft -= 0.1;
+        updateTimerBar();
+        if (speedSecondsLeft <= 0) {
+          clearInterval(speedTimer);
+          // time up — flash wrong, move on
+          document.querySelectorAll('.speed-choice').forEach(b => {
+            b.disabled = true;
+            if (b.textContent === q.answer) b.classList.add('correct');
+          });
+          setTimeout(() => { speedIndex++; showSpeedQuestion(); }, 700);
+        }
+      }, 100);
+    }
+
+    function updateTimerBar() {
+      const pct = Math.max(0, (speedSecondsLeft / SPEED_DURATION) * 100);
+      const bar = document.getElementById('speed-bar');
+      bar.style.width = pct + '%';
+      bar.classList.toggle('urgent', speedSecondsLeft < 2);
+      document.getElementById('speed-time').textContent = Math.ceil(speedSecondsLeft) + 's';
+    }
+
+    function answerSpeed(chosen, correct) {
+      clearInterval(speedTimer);
+      document.querySelectorAll('.speed-choice').forEach(b => {
+        b.disabled = true;
+        if (b.textContent === correct) b.classList.add('correct');
+        else if (b.textContent === chosen) b.classList.add('wrong');
+      });
+      if (chosen === correct) speedScore++;
+      speedIndex++;
+      setTimeout(() => showSpeedQuestion(), 600);
+    }
+
+    function endSpeedRound() {
+      clearInterval(speedTimer);
+      document.getElementById('speed-game-screen').style.display = 'none';
+      document.getElementById('speed-end-screen').style.display = '';
+      document.getElementById('speed-final-score').textContent = speedScore;
+    }
+
+    document.getElementById('speed-start-btn').addEventListener('click', () => {
+      speedIndex = 0; speedScore = 0;
+      pronounWords.sort(() => Math.random() - 0.5);
+      document.getElementById('speed-start-screen').style.display = 'none';
+      document.getElementById('speed-end-screen').style.display = 'none';
+      document.getElementById('speed-game-screen').style.display = '';
+      showSpeedQuestion();
+    });
+
+    document.getElementById('speed-restart-btn').addEventListener('click', () => {
+      speedIndex = 0; speedScore = 0;
+      pronounWords.sort(() => Math.random() - 0.5);
+      document.getElementById('speed-end-screen').style.display = 'none';
+      document.getElementById('speed-game-screen').style.display = '';
+      showSpeedQuestion();
+    });
   </script>
 
 </body>
