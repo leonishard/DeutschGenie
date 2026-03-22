@@ -392,28 +392,13 @@
 
     .demo-panel.hidden { display: none; }
 
-    .demo-question {
-      display: flex;
-      align-items: flex-start;
-      gap: 16px;
-      margin-bottom: 36px;
-    }
-
-    .demo-avatar {
-      width: 40px;
-      height: 40px;
-      flex-shrink: 0;
-    }
-
-    .demo-bubble {
-      background: var(--surface-2);
-      border: 1px solid var(--border);
-      border-radius: 0 12px 12px 12px;
-      padding: 12px 16px;
-      font-size: 0.9rem;
+    .demo-instruction {
+      font-size: 1rem;
       color: var(--text);
+      font-weight: 400;
+      text-align: center;
+      margin-bottom: 36px;
       line-height: 1.5;
-      max-width: 360px;
     }
 
     /* Answer drop zone */
@@ -515,69 +500,165 @@
     .demo-feedback.success { color: var(--accent); }
     .demo-feedback.error { color: #f87171; }
 
-    /* Compound grid */
-    .compound-grid {
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
-      gap: 12px 16px;
-      align-items: center;
-      margin-bottom: 36px;
-      max-width: 520px;
+    /* Compound drag-to-slot */
+    .compound-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 28px;
     }
 
-    .compound-left {
-      padding: 10px 16px;
-      border-radius: 8px;
-      background: var(--surface-2);
-      border: 1px solid var(--border);
-      color: var(--text);
+    .compound-row {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      height: 46px;
+    }
+
+    .compound-slot {
+      width: 130px;
+      height: 46px;
+      border: 1.5px dashed var(--border);
+      border-radius: 8px 0 0 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-size: 0.9rem;
+      color: var(--text-muted);
+      transition: border-color 0.2s, background 0.2s;
+      position: relative;
+    }
+
+    .compound-slot.drag-over {
+      border-color: var(--accent);
+      background: var(--accent-dim);
+    }
+
+    .compound-slot.filled {
+      border-color: var(--accent-border);
+      background: var(--accent-dim);
+    }
+
+    .compound-slot.correct {
+      border-color: var(--accent);
+      background: var(--accent-dim);
+    }
+
+    .compound-slot.incorrect {
+      border-color: rgba(239,68,68,0.5);
+      background: rgba(239,68,68,0.08);
+    }
+
+    .compound-slot-inner {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      color: var(--accent);
+      font-weight: 500;
       cursor: pointer;
-      text-align: right;
-      transition: background 0.15s, border-color 0.15s;
+    }
+
+    .compound-slot-placeholder {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      opacity: 0.4;
       user-select: none;
     }
 
-    .compound-left.selected {
-      background: var(--accent-dim);
-      border-color: var(--accent-border);
-      color: var(--accent);
+    .compound-join {
+      width: 20px;
+      height: 46px;
+      background: var(--surface-2);
+      border-top: 1.5px solid var(--border);
+      border-bottom: 1.5px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .compound-connector {
-      width: 24px;
+    .compound-join-line {
+      width: 12px;
       height: 2px;
       background: var(--border);
-      border-radius: 2px;
-      justify-self: center;
-      transition: background 0.2s;
+      border-radius: 1px;
     }
 
-    .compound-connector.linked { background: var(--accent); }
-
-    .compound-right {
-      padding: 10px 16px;
-      border-radius: 8px;
+    .compound-fixed {
+      height: 46px;
+      min-width: 100px;
+      padding: 0 18px;
+      border-radius: 0 8px 8px 0;
       background: var(--surface-2);
-      border: 1px solid var(--border);
-      color: var(--text);
+      border: 1.5px solid var(--border);
+      border-left: none;
+      display: flex;
+      align-items: center;
       font-size: 0.9rem;
-      cursor: pointer;
-      transition: background 0.15s, border-color 0.15s;
+      color: var(--text);
+      font-weight: 400;
       user-select: none;
     }
 
-    .compound-right.matched {
-      background: var(--accent-dim);
-      border-color: var(--accent-border);
-      color: var(--accent);
+    .compound-bank-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      opacity: 0.6;
     }
 
-    .compound-right.wrong-match {
-      background: rgba(239,68,68,0.12);
-      border-color: rgba(239,68,68,0.35);
-      color: #f87171;
+    .compound-bank {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 32px;
+      min-height: 46px;
     }
+
+    .compound-piece {
+      padding: 10px 18px;
+      border-radius: 8px;
+      background: var(--surface-2);
+      border: 1.5px solid var(--border);
+      color: var(--text);
+      font-size: 0.9rem;
+      cursor: grab;
+      user-select: none;
+      transition: transform 0.15s, border-color 0.15s, opacity 0.15s;
+    }
+
+    .compound-piece:hover {
+      border-color: var(--accent-border);
+      transform: translateY(-2px);
+    }
+
+    .compound-piece.dragging {
+      opacity: 0.4;
+      cursor: grabbing;
+    }
+
+    .compound-piece.used {
+      opacity: 0.2;
+      pointer-events: none;
+    }
+
+    .demo-reset {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .demo-reset:hover { border-color: var(--text-muted); color: var(--text); }
 
     /* ── FEATURES ── */
     #features {
@@ -909,16 +990,7 @@
 
         <!-- Sentence builder -->
         <div class="demo-panel" id="tab-sentence">
-          <div class="demo-question">
-            <div class="demo-avatar">
-              <svg viewBox="0 0 40 40" fill="none">
-                <circle cx="20" cy="20" r="20" fill="#1a2332"/>
-                <circle cx="20" cy="15" r="7" fill="#4ade80" opacity="0.3"/>
-                <path d="M8 35 Q20 28 32 35" stroke="#4ade80" stroke-width="1.5" fill="none" opacity="0.4"/>
-              </svg>
-            </div>
-            <div class="demo-bubble" id="sentence-prompt">What are you doing this evening?</div>
-          </div>
+          <p class="demo-instruction" id="sentence-prompt">Translate: "What are you doing this evening?"</p>
 
           <div class="demo-answer-area" id="sentence-answer"></div>
           <div class="demo-divider"></div>
@@ -932,21 +1004,16 @@
 
         <!-- Compound connector -->
         <div class="demo-panel hidden" id="tab-compound">
-          <div class="demo-question">
-            <div class="demo-avatar">
-              <svg viewBox="0 0 40 40" fill="none">
-                <circle cx="20" cy="20" r="20" fill="#1a2332"/>
-                <circle cx="20" cy="15" r="7" fill="#4ade80" opacity="0.3"/>
-                <path d="M8 35 Q20 28 32 35" stroke="#4ade80" stroke-width="1.5" fill="none" opacity="0.4"/>
-              </svg>
-            </div>
-            <div class="demo-bubble">Connect the word parts to form German compound nouns.</div>
-          </div>
+          <p class="demo-instruction">Drag each word part onto the correct ending to form a compound noun.</p>
 
-          <div class="compound-grid" id="compound-grid"></div>
+          <div class="compound-rows" id="compound-rows"></div>
+
+          <div class="compound-bank-label">Word parts</div>
+          <div class="compound-bank" id="compound-bank"></div>
 
           <div class="demo-actions">
-            <button class="demo-submit" id="compound-submit">Submit</button>
+            <button class="demo-submit" id="compound-submit">Check answers</button>
+            <button class="demo-reset" id="compound-reset">Reset</button>
             <span class="demo-feedback" id="compound-feedback"></span>
           </div>
         </div>
@@ -1116,9 +1183,9 @@
 
     // ── SENTENCE BUILDER ──
     const sentences = [
-      { prompt: "What are you doing this evening?", answer: ["Ich", "gehe", "heute", "Abend", "ins", "Kino"], extra: ["esse", "mache", "spiele", "trinke", "gern"] },
-      { prompt: "How old are you?", answer: ["Ich", "bin", "zwanzig", "Jahre", "alt"], extra: ["habe", "gehe", "sehr", "heute"] },
-      { prompt: "Where do you live?", answer: ["Ich", "wohne", "in", "Berlin"], extra: ["gehe", "bin", "nach", "Hamburg"] }
+      { prompt: 'Translate: "What are you doing this evening?"', answer: ["Ich", "gehe", "heute", "Abend", "ins", "Kino"], extra: ["esse", "mache", "spiele", "trinke", "gern"] },
+      { prompt: 'Translate: "How old are you?"', answer: ["Ich", "bin", "zwanzig", "Jahre", "alt"], extra: ["habe", "gehe", "sehr", "heute"] },
+      { prompt: 'Translate: "Where do you live?"', answer: ["Ich", "wohne", "in", "Berlin"], extra: ["gehe", "bin", "nach", "Hamburg"] }
     ];
 
     let sentenceIndex = 0;
@@ -1199,91 +1266,161 @@
 
     loadSentence();
 
-    // ── COMPOUND CONNECTOR ──
-    const pairs = [
-      { left: "Kranken", right: "haus" },
-      { left: "Zahn",    right: "arzt" },
-      { left: "Spiel",   right: "platz" },
-      { left: "Schreib", right: "tisch" },
-      { left: "Haus",    right: "tür" }
+    // ── COMPOUND DRAG TO SLOT ──
+    const compoundPairs = [
+      { left: "Kranken", right: "haus",   full: "Krankenhaus"  },
+      { left: "Zahn",    right: "arzt",   full: "Zahnarzt"     },
+      { left: "Spiel",   right: "platz",  full: "Spielplatz"   },
+      { left: "Schreib", right: "tisch",  full: "Schreibtisch" },
+      { left: "Haus",    right: "tür",    full: "Haustür"      }
     ];
 
-    let selectedLeft = null;
-    let matches = {};
+    // slotMap: rightPart -> currently placed leftPart or null
+    let slotMap = {};
+    let draggedPiece = null;
 
     function buildCompound() {
-      matches = {};
-      selectedLeft = null;
+      slotMap = {};
+      draggedPiece = null;
       document.getElementById('compound-feedback').textContent = '';
       document.getElementById('compound-feedback').className = 'demo-feedback';
 
-      const shuffledRight = [...pairs.map(p => p.right)].sort(() => Math.random() - 0.5);
-      const grid = document.getElementById('compound-grid');
-      grid.innerHTML = '';
+      // shuffle left parts for the bank
+      const shuffled = [...compoundPairs].sort(() => Math.random() - 0.5);
 
-      pairs.forEach((pair, i) => {
-        // left
-        const l = document.createElement('div');
-        l.className = 'compound-left';
-        l.textContent = pair.left;
-        l.dataset.left = pair.left;
-        l.addEventListener('click', () => {
-          document.querySelectorAll('.compound-left').forEach(el => el.classList.remove('selected'));
-          l.classList.add('selected');
-          selectedLeft = pair.left;
+      // Build rows (fixed right side + drop slot on left)
+      const rows = document.getElementById('compound-rows');
+      rows.innerHTML = '';
+      compoundPairs.forEach(pair => {
+        const row = document.createElement('div');
+        row.className = 'compound-row';
+
+        // drop slot
+        const slot = document.createElement('div');
+        slot.className = 'compound-slot';
+        slot.dataset.right = pair.right;
+        slot.innerHTML = '<span class="compound-slot-placeholder">drop here</span>';
+
+        // click slot to remove piece back to bank
+        slot.addEventListener('click', () => {
+          if (slotMap[pair.right]) {
+            returnToBank(slotMap[pair.right]);
+            slotMap[pair.right] = null;
+            slot.innerHTML = '<span class="compound-slot-placeholder">drop here</span>';
+            slot.classList.remove('filled', 'correct', 'incorrect');
+          }
         });
 
-        // connector line
-        const c = document.createElement('div');
-        c.className = 'compound-connector';
-        c.id = 'conn-' + pair.left;
+        // drag events
+        slot.addEventListener('dragover', e => { e.preventDefault(); slot.classList.add('drag-over'); });
+        slot.addEventListener('dragleave', () => slot.classList.remove('drag-over'));
+        slot.addEventListener('drop', e => {
+          e.preventDefault();
+          slot.classList.remove('drag-over');
+          if (!draggedPiece) return;
+          const leftVal = draggedPiece.dataset.left;
 
-        // right
-        const r = document.createElement('div');
-        r.className = 'compound-right';
-        r.textContent = shuffledRight[i];
-        r.dataset.right = shuffledRight[i];
-        r.addEventListener('click', () => {
-          if (!selectedLeft) return;
-          matches[selectedLeft] = shuffledRight[i];
-          // update connector
-          document.getElementById('conn-' + selectedLeft).classList.add('linked');
-          r.classList.remove('wrong-match');
-          r.classList.add('matched');
-          document.querySelector(`[data-left="${selectedLeft}"]`).classList.remove('selected');
-          selectedLeft = null;
+          // if slot already has something, return it
+          if (slotMap[pair.right]) returnToBank(slotMap[pair.right]);
+
+          // remove piece from bank visually
+          draggedPiece.classList.add('used');
+          slotMap[pair.right] = leftVal;
+
+          slot.classList.add('filled');
+          slot.classList.remove('correct', 'incorrect');
+          slot.innerHTML = `<div class="compound-slot-inner">${leftVal}</div>`;
+
+          // re-add click to remove
+          slot.addEventListener('click', () => {
+            if (slotMap[pair.right]) {
+              returnToBank(slotMap[pair.right]);
+              slotMap[pair.right] = null;
+              slot.innerHTML = '<span class="compound-slot-placeholder">drop here</span>';
+              slot.classList.remove('filled', 'correct', 'incorrect');
+            }
+          });
+
+          draggedPiece = null;
         });
 
-        grid.appendChild(l);
-        grid.appendChild(c);
-        grid.appendChild(r);
+        // join bar
+        const join = document.createElement('div');
+        join.className = 'compound-join';
+        join.innerHTML = '<div class="compound-join-line"></div>';
+
+        // fixed right part
+        const fixed = document.createElement('div');
+        fixed.className = 'compound-fixed';
+        fixed.textContent = pair.right;
+
+        row.appendChild(slot);
+        row.appendChild(join);
+        row.appendChild(fixed);
+        rows.appendChild(row);
+      });
+
+      // Build bank
+      const bank = document.getElementById('compound-bank');
+      bank.innerHTML = '';
+      shuffled.forEach(pair => {
+        const piece = document.createElement('div');
+        piece.className = 'compound-piece';
+        piece.textContent = pair.left;
+        piece.draggable = true;
+        piece.dataset.left = pair.left;
+
+        piece.addEventListener('dragstart', () => {
+          draggedPiece = piece;
+          setTimeout(() => piece.classList.add('dragging'), 0);
+        });
+        piece.addEventListener('dragend', () => {
+          piece.classList.remove('dragging');
+        });
+
+        // touch support
+        piece.addEventListener('touchstart', e => {
+          draggedPiece = piece;
+        }, { passive: true });
+
+        bank.appendChild(piece);
       });
     }
 
-    document.getElementById('compound-submit').addEventListener('click', () => {
-      let allCorrect = true;
-      const fb = document.getElementById('compound-feedback');
+    function returnToBank(leftVal) {
+      const piece = document.querySelector(`.compound-piece[data-left="${leftVal}"]`);
+      if (piece) piece.classList.remove('used');
+    }
 
-      pairs.forEach(pair => {
-        const given = matches[pair.left];
-        const conn = document.getElementById('conn-' + pair.left);
-        const rightEl = document.querySelector(`[data-right="${given}"]`);
-        if (given !== pair.right) {
-          allCorrect = false;
-          if (rightEl) { rightEl.classList.remove('matched'); rightEl.classList.add('wrong-match'); }
-          if (conn) conn.classList.remove('linked');
+    document.getElementById('compound-submit').addEventListener('click', () => {
+      const fb = document.getElementById('compound-feedback');
+      let correct = 0;
+
+      compoundPairs.forEach(pair => {
+        const slot = document.querySelector(`.compound-slot[data-right="${pair.right}"]`);
+        const given = slotMap[pair.right];
+        if (!slot) return;
+        if (given === pair.left) {
+          slot.classList.add('correct');
+          slot.classList.remove('incorrect');
+          correct++;
+        } else if (given) {
+          slot.classList.add('incorrect');
+          slot.classList.remove('correct');
         }
       });
 
-      if (allCorrect && Object.keys(matches).length === pairs.length) {
-        fb.textContent = 'All correct — excellent.';
+      if (correct === compoundPairs.length) {
+        fb.textContent = 'All correct — well done.';
         fb.className = 'demo-feedback success';
         setTimeout(buildCompound, 1600);
       } else {
-        fb.textContent = 'Some matches are wrong — keep trying.';
+        fb.textContent = `${correct} of ${compoundPairs.length} correct — keep going.`;
         fb.className = 'demo-feedback error';
       }
     });
+
+    document.getElementById('compound-reset').addEventListener('click', buildCompound);
 
     buildCompound();
   </script>
