@@ -389,14 +389,31 @@
 
     .demo-panel {
       padding: 40px;
+    }
+
+    #tab-sentence,
+    #tab-speed {
       display: flex;
       flex-direction: column;
       align-items: center;
     }
 
-    .demo-panel > * { width: 100%; max-width: 560px; }
+    #tab-sentence > *,
+    #tab-speed > * { width: 100%; max-width: 560px; }
 
-    .demo-panel.hidden { display: none; }
+    #tab-compound {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .compound-rows,
+    .compound-bank,
+    .compound-bank-label,
+    #tab-compound .demo-instruction,
+    #tab-compound .demo-actions { width: 100%; max-width: 560px; }
+
+    .demo-panel.hidden { display: none !important; }
 
     .demo-instruction {
       font-size: 1rem;
@@ -1244,12 +1261,11 @@
 
         <article class="feature-card fade-up" style="transition-delay: 0.18s">
           <div class="feature-icon">
-            <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 20 18 10"/><polyline points="12 20 12 4"/><polyline points="6 20 6 14"/></svg>
           </div>
-          <h3 class="feature-title">Free, with no catch</h3>
+          <h3 class="feature-title">Compete on the leaderboard</h3>
           <p class="feature-desc">
-            DeutschGenie is entirely free to download and use. No subscription required, no credit card,
-            no paywall halfway through the beginner lessons. Just German learning, available immediately.
+            Every lesson earns XP that puts you on a global leaderboard. Seeing your name climb past other learners adds a layer of motivation that solo practice simply cannot replicate.
           </p>
         </article>
       </div>
