@@ -1,9 +1,9 @@
-# DeutschGenie — Landing Page
+# DeutschGenie Landing Page
 
 University project for the Content Marketing module (WS2026).
 
 **Live site:** [lennyrichartz.ninja](https://lennyrichartz.ninja)  
-**Live demo:** Try the interactive lesson exercises directly in the browser — no download required.
+**Live demo:** Try the interactive lesson exercises directly in the browser no download required.
 
 ---
 
@@ -23,11 +23,11 @@ Plain HTML, CSS, and JavaScript. No frameworks or build tools required.
 ```
 /
 ├── index.html
-├── style.css
+├── style.css    
 ├── main.js
 ├── robots.txt
 ├── sitemap.xml
-└── assets/
+└── assets/    
     ├── app-screen-1.png
     ├── app-screen-2.png
     └── og-image.png
@@ -44,11 +44,4 @@ python -m http.server 8000
 
 Then visit `http://localhost:8000`.
 
----
 
-## Academic Context
-
-**Student:** Leonhard Richartz  
-**Student ID:** 100001213  
-**Module:** Content Marketing  
-**Semester:** WS2026
