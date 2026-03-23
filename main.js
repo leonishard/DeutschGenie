@@ -1,4 +1,4 @@
-// ── FADE IN ──
+
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(el => {
     if (el.isIntersecting) { el.target.classList.add('visible'); observer.unobserve(el.target); }
@@ -6,7 +6,7 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.12 });
 document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-// ── TABS ──
+
 document.querySelectorAll('.demo-tab').forEach(btn => {
   btn.addEventListener('click', () => {
     clearInterval(speedTimer);
@@ -17,7 +17,7 @@ document.querySelectorAll('.demo-tab').forEach(btn => {
   });
 });
 
-// ── SENTENCE BUILDER ──
+
 const sentences = [
   { prompt: 'Translate: "What are you doing this evening?"', answer: ["Ich", "gehe", "heute", "Abend", "ins", "Kino"], extra: ["esse", "mache", "spiele", "trinke", "gern"] },
   { prompt: 'Translate: "How old are you?"', answer: ["Ich", "bin", "zwanzig", "Jahre", "alt"], extra: ["habe", "gehe", "sehr", "heute"] },
@@ -97,7 +97,7 @@ document.getElementById('sentence-submit').addEventListener('click', () => {
 
 loadSentence();
 
-// ── COMPOUND DRAG TO SLOT ──
+
 const compoundPairs = [
   { left: "Kranken", right: "haus",  full: "Krankenhaus"  },
   { left: "Zahn",    right: "arzt",  full: "Zahnarzt"     },
@@ -236,7 +236,7 @@ document.getElementById('compound-reset').addEventListener('click', buildCompoun
 
 buildCompound();
 
-// ── SPEED ROUND ──
+
 const pronounWords = [
   { word: "Kuh",     answer: "Die", choices: ["Der","Die","Das","Dem"]  },
   { word: "Hund",    answer: "Der", choices: ["Der","Die","Das","Ein"]  },
@@ -345,19 +345,19 @@ document.getElementById('speed-restart-btn').addEventListener('click', () => {
   showSpeedQuestion();
 });
 
-// ── FAQ ACCORDION ──
+
 document.querySelectorAll('.faq-question').forEach(btn => {
   btn.addEventListener('click', () => {
     const item = btn.parentElement;
     const isOpen = item.classList.contains('open');
 
-    // close all
+  
     document.querySelectorAll('.faq-item').forEach(el => {
       el.classList.remove('open');
       el.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
     });
 
-    // open clicked if it was closed
+  
     if (!isOpen) {
       item.classList.add('open');
       btn.setAttribute('aria-expanded', 'true');

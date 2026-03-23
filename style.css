@@ -995,16 +995,16 @@ footer {
   font-weight: 300;
 }
 
-/* ── RESPONSIVE ── */
+
 @media (max-width: 900px) {
 
-  /* NAV */
+  
   nav { padding: 0 20px; }
   .nav-links { gap: 16px; }
   .nav-links li:first-child,
   .nav-links li:nth-child(2) { display: none; }
 
-  /* HERO — text first, image below */
+  
   .hero {
     grid-template-columns: 1fr;
     grid-template-rows: auto auto;
@@ -1022,36 +1022,36 @@ footer {
   .hero-actions { justify-content: center; }
   .hero-proof { justify-content: center; flex-wrap: wrap; gap: 16px; }
 
-  /* Smaller phone on mobile */
+  
   .phone-frame { width: 180px; border-radius: 28px; }
 
-  /* SECTIONS */
+ 
   section { padding: 60px 20px; }
 
-  /* LESSONS HEADER */
+ 
   .lessons-header {
     grid-template-columns: 1fr;
     gap: 16px;
     margin-bottom: 32px;
   }
 
-  /* DEMO */
+ 
   .demo-panel { padding: 24px 16px; }
   .demo-tab { font-size: 0.75rem; padding: 12px 8px; }
 
-  /* FEATURES */
+ 
   .features-grid { grid-template-columns: 1fr; }
 
-  /* TESTIMONIALS */
+ 
   .testimonials-grid { grid-template-columns: 1fr; }
 
-  /* FAQ */
+  
   .faq-list { margin-top: 40px; }
   .faq-question { padding: 22px 20px; }
   .faq-body { padding: 0 20px; }
   .faq-item.open .faq-body { padding: 0 20px 22px; }
 
-  /* FOOTER */
+  
   footer {
     flex-direction: column;
     gap: 20px;
