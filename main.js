@@ -374,12 +374,14 @@ const heroImages = [
 let heroIndex = 0;
 const heroImg = document.getElementById('hero-phone-img');
 
-setInterval(() => {
-  heroImg.style.opacity = '0';
-  setTimeout(() => {
-    heroIndex = (heroIndex + 1) % heroImages.length;
-    heroImg.src = heroImages[heroIndex];
-    heroImg.style.opacity = '1';
-  }, 400);
-}, 5000);
+if (heroImg) {
+  setInterval(() => {
+    heroImg.style.opacity = '0';
+    setTimeout(() => {
+      heroIndex = (heroIndex + 1) % heroImages.length;
+      heroImg.src = heroImages[heroIndex];
+      heroImg.style.opacity = '1';
+    }, 400);
+  }, 3000);
+}
 });
