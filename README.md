@@ -24,6 +24,7 @@ Plain HTML, CSS, and JavaScript. No frameworks or build tools required.
 └── assets/    
     ├── app-screen-1.png
     ├── app-screen-2.png
+    ├── app-screen-3.png
     └── og-image.png
 ```
 
