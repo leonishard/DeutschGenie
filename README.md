@@ -2,6 +2,7 @@
 ## About
 
 A marketing landing page for a German language learning app. Built to demonstrate conversion-focused design, SEO implementation, and technical best practices. Accompanied by a full SEO report.
+
 **Live site:** [lennyrichartz.ninja](https://lennyrichartz.ninja)  
 
 ---
