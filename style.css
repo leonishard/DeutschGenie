@@ -917,26 +917,69 @@ footer {
 
 /* ── RESPONSIVE ── */
 @media (max-width: 900px) {
+
+  /* NAV */
+  nav { padding: 0 20px; }
+  .nav-links { gap: 16px; }
+  .nav-links li:first-child,
+  .nav-links li:nth-child(2) { display: none; }
+
+  /* HERO — text first, image below */
   .hero {
     grid-template-columns: 1fr;
-    padding: 100px 32px 60px;
-    gap: 60px;
+    grid-template-rows: auto auto;
+    padding: 90px 24px 60px;
+    gap: 40px;
     text-align: center;
+    min-height: unset;
   }
 
-  .hero-sub { margin: 0 auto 40px; }
-  .hero-actions { justify-content: center; }
-  .hero-proof { justify-content: center; }
-  .hero-visual { order: -1; }
-  .lessons-header { grid-template-columns: 1fr; }
-  .features-grid, .testimonials-grid { grid-template-columns: 1fr; }
-  nav { padding: 0 24px; }
-  section { padding: 72px 24px; }
+  .hero-content { order: 1; }
+  .hero-visual  { order: 2; }
 
+  .hero h1 { font-size: clamp(1.9rem, 7vw, 2.6rem); }
+  .hero-sub { margin: 0 auto 32px; font-size: 0.95rem; }
+  .hero-actions { justify-content: center; }
+  .hero-proof { justify-content: center; flex-wrap: wrap; gap: 16px; }
+
+  /* Smaller phone on mobile */
+  .phone-frame { width: 180px; border-radius: 28px; }
+
+  /* SECTIONS */
+  section { padding: 60px 20px; }
+
+  /* LESSONS HEADER */
+  .lessons-header {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  /* DEMO */
+  .demo-panel { padding: 24px 16px; }
+  .demo-tab { font-size: 0.75rem; padding: 12px 8px; }
+
+  /* FEATURES */
+  .features-grid { grid-template-columns: 1fr; }
+
+  /* TESTIMONIALS */
+  .testimonials-grid { grid-template-columns: 1fr; }
+
+  /* FOOTER */
   footer {
     flex-direction: column;
     gap: 20px;
     text-align: center;
-    padding: 32px 24px;
+    padding: 32px 20px;
   }
+
+  .footer-links { flex-wrap: wrap; justify-content: center; gap: 16px; }
+}
+
+@media (max-width: 480px) {
+  .hero h1 { font-size: 1.75rem; }
+  .phone-frame { width: 150px; border-radius: 24px; }
+  .demo-tab { font-size: 0.7rem; padding: 10px 6px; }
+  .hero-proof { gap: 12px; }
+  .proof-number { font-size: 1.2rem; }
 }
