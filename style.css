@@ -954,17 +954,21 @@ footer {
   color: var(--text);
   line-height: 1.4;
   font-family: var(--font-body);
+  flex: 1;
 }
 
 .faq-icon {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  min-height: 18px;
   flex-shrink: 0;
   stroke: var(--text-muted);
   fill: none;
   stroke-width: 1.8;
   stroke-linecap: round;
   transition: transform 0.3s ease, stroke 0.2s;
+  display: block;
 }
 
 .faq-item.open .faq-icon {
