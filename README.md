@@ -27,15 +27,3 @@ Plain HTML, CSS, and JavaScript. No frameworks or build tools required.
     └── og-image.png
 ```
 
----
-
-## Running Locally
-
-Clone the repository and open `index.html` in a browser, or use a local server:
-```
-python -m http.server 8000
-```
-
-Then visit `http://localhost:8000`.
-
-
