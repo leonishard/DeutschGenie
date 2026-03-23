@@ -1,9 +1,6 @@
 # DeutschGenie Landing Page
 
-University project for the Content Marketing module (WS2026).
-
 **Live site:** [lennyrichartz.ninja](https://lennyrichartz.ninja)  
-**Live demo:** Try the interactive lesson exercises directly in the browser no download required.
 
 ---
 
