@@ -215,6 +215,11 @@ nav {
   display: block;
   background: var(--surface);
   overflow: hidden;
+
+}  
+
+#hero-phone-img {
+  transition: opacity 1s ease;
 }
 
 .phone-frame img { width: 100%; display: block; }

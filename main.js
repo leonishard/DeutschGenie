@@ -363,4 +363,23 @@ document.querySelectorAll('.faq-question').forEach(btn => {
       btn.setAttribute('aria-expanded', 'true');
     }
   });
+
+
+const heroImages = [
+  'assets/app-screen-2.png',
+  'assets/app-screen-1.png',
+  'assets/app-screen-3.png'
+];
+
+let heroIndex = 0;
+const heroImg = document.getElementById('hero-phone-img');
+
+setInterval(() => {
+  heroImg.style.opacity = '0';
+  setTimeout(() => {
+    heroIndex = (heroIndex + 1) % heroImages.length;
+    heroImg.src = heroImages[heroIndex];
+    heroImg.style.opacity = '1';
+  }, 400);
+}, 5000);
 });
