@@ -382,6 +382,6 @@ if (heroImg) {
       heroImg.src = heroImages[heroIndex];
       heroImg.style.opacity = '1';
     }, 400);
-  }, 3000);
+  }, 5000);
 }
 });
